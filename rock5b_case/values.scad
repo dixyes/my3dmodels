@@ -114,7 +114,7 @@ lxHDMIIn = 9.5;
 lyHDMIIn = l1HDMI;
 xHDMIIn = 91.8;
 yHDMIIn = 25;
-zHDMIIn = lzBoard;
+zHDMIIn = 2.2;
 
 // full function type C
 lyTypeC = 7.5; // from step

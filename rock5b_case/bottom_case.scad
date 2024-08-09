@@ -6,6 +6,7 @@ include <parts.scad>;
 debug = $preview;
 
 noDetails = true;
+noBottomInterfacePadding = true;
 
 thicknessCase = 1.5;
 
@@ -57,59 +58,60 @@ difference() {
         }
 
         // interfaces
+        if (!noBottomInterfacePadding) {
+            if (!noDetails) {
+                // 3.5mm jack
+                bottomInterfacePadding(
+                    xJack35 - (dJack35 / 2),
+                    dJack35,
+                    zJack35 - lzBoard
+                );
 
-        if (!noDetails) {
-            // 3.5mm jack
+                // power type C
+                bottomInterfacePadding(
+                    xPowerTypeC - (dTypeC / 2),
+                    dTypeC,
+                    dTypeC / 2
+                );
+            }
+
+            // HDMI1
             bottomInterfacePadding(
-                xJack35 - (dJack35 / 2),
-                dJack35,
-                zJack35 - lzBoard
+                xHDMI1 + 0.01,
+                lxHDMI - 0.02,
+                noDetails ? zHDMI1 - lzBoard - lInterfacesFitting : lxHDMICorner
+            );
+        
+            // HDMI2
+            bottomInterfacePadding(
+                xHDMI2 + 0.01,
+                lxHDMI - 0.02,
+                noDetails ? zHDMI2 - lzBoard - lInterfacesFitting : lxHDMICorner
             );
 
-            // power type C
+            // USB 2.0
             bottomInterfacePadding(
-                xPowerTypeC - (dTypeC / 2),
-                dTypeC,
-                dTypeC / 2
+                xUSB2,
+                lxUSB2,
+                zUSB2 - lzBoard
             );
-        }
 
-        // HDMI1
-        bottomInterfacePadding(
-            xHDMI1 + 0.01,
-            lxHDMI - 0.02,
-            noDetails ? zHDMI1 - lzBoard - lInterfacesFitting : lxHDMICorner
-        );
-    
-        // HDMI2
-        bottomInterfacePadding(
-            xHDMI2 + 0.01,
-            lxHDMI - 0.02,
-            noDetails ? zHDMI2 - lzBoard - lInterfacesFitting : lxHDMICorner
-        );
+            // USB 3.0
+            bottomInterfacePadding(
+                xUSB3,
+                lxUSB3,
+                zUSB3 - lzBoard
+            );
 
-        // USB 2.0
-        bottomInterfacePadding(
-            xUSB2,
-            lxUSB2,
-            zUSB2 - lzBoard
-        );
-
-        // USB 3.0
-        bottomInterfacePadding(
-            xUSB3,
-            lxUSB3,
-            zUSB3 - lzBoard
-        );
-
-        if (!noDetails) {
-            // HDMI IN
-            translate([
-                lxBoard + lxyBoardFitting,
-                yHDMIIn + 0.01,
-                lzBoard,
-            ])
-                cube([thicknessCase, lyHDMIIn - 0.02, lxHDMICorner]);
+            if (!noDetails) {
+                // HDMI IN
+                translate([
+                    lxBoard + lxyBoardFitting,
+                    yHDMIIn + 0.01,
+                    lzBoard,
+                ])
+                    cube([thicknessCase, lyHDMIIn - 0.02, lxHDMICorner]);
+            }
         }
     }
     union() {
